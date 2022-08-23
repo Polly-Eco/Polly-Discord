@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist",
+        "downlevelIteration": true,
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "target": "es2020",
+        "allowJs": true,
+        "allowSyntheticDefaultImports": true,
+        "moduleResolution": "node",
+        "module": "commonjs",
+        "skipLibCheck": true,
+        "lib": ["es2020", "dom"],
+        "typeRoots": ["./src/types", "./node_modules/@types"],
+        "esModuleInterop": true,
+        "resolveJsonModule": true
+    },
+    "include": ["./src/"],
+    "exclude": ["types"]
+}

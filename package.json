@@ -1,0 +1,51 @@
+{
+  "name": "polly-pattern",
+  "version": "1.0.0",
+  "description": "Basic pattern repo for Polly-Eco",
+  "main": "./dist/src/index.js",
+  "scripts": {
+    "start": "node ./dist/index.js",
+    "start:dev": "nodemon",
+    "build": "bash ./scripts/build.sh",
+    "compile": "tsc --project tsconfig.build.json",
+    "test": "jest",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "prettier": "npx prettier --write ./src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MonMon201/Polly-3.git"
+  },
+  "keywords": [
+    "repo",
+    "pattern",
+    "polly-eco"
+  ],
+  "author": "MonMon201",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Polly-Eco/Polly-Pattern/issues"
+  },
+  "homepage": "https://github.com/Polly-Eco/Polly-Pattern#readme",
+  "devDependencies": {
+    "@types/jest": "^28.1.2",
+    "@types/node": "^18.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.28.0",
+    "@typescript-eslint/parser": "^5.28.0",
+    "eslint": "^8.18.0",
+    "eslint-plugin-jest": "^26.5.3",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^28.1.1",
+    "nodemon": "^2.0.16",
+    "prettier": "^2.7.1",
+    "ts-jest": "^28.0.5",
+    "ts-node": "^10.8.1",
+    "tslib": "^2.4.0",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "undici": "^5.5.1"
+  }
+}
