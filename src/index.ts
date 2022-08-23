@@ -1,6 +1,10 @@
-import { add } from './example/example';
+import { request } from 'undici';
 
-const a = 5;
-const b = 3;
+(async () => {
+	const { statusCode, headers, trailers, body } = await request('https://google.com/');
 
-console.log(add(a, b));
+	console.log('response received', statusCode);
+	console.log('headers', headers);
+	console.log('data', await body.json());
+	console.log('trailers', trailers);
+})();
