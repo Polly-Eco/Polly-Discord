@@ -15,12 +15,5 @@ export class Handler {
 			return;
 		}
 		await command(interaction);
-		// const command = this.commands.find((command) => command.getName() === commandName);
-		// if (!command) {
-		//     console.log('Not implemented');
-		//     return;
-		// }
-		// const result = command.handleCommand([]);
-		// console.log(commandName, head, tails);
 	}
 }
