@@ -1,5 +1,5 @@
 import { ChatInputCommandInteraction, Collection } from 'discord.js';
-import { Command, CommandExecutor } from '../shared/interfaces';
+import { CommandExecutor } from '../shared/interfaces';
 
 export class Handler {
 	private commands: Collection<string, CommandExecutor>;
