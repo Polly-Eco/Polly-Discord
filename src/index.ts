@@ -1,4 +1,3 @@
-// import { request } from 'undici';
 import 'dotenv/config';
 import {
 	GatewayIntentBits,
