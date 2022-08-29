@@ -14,6 +14,7 @@ export class Prelaunch {
         this.appConfig = appConfig;
         this.pollyRest = pollyRest;
     }
+
     public async getCommands (): Promise<Command[]> {
         const commandFiles =(await fs
             .readdir(this.commandsPath))

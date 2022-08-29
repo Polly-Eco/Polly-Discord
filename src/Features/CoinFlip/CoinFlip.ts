@@ -8,9 +8,9 @@ export interface CoinFlipResult {
 
 export interface Coin {
 	head: string;
-	customHead: boolean;
+	isCustomHead: boolean;
 	tails: string;
-	customTails: boolean;
+	isCustomTails: boolean;
 }
 
 export enum CoinSides {
@@ -21,19 +21,19 @@ export enum CoinSides {
 export class CoinFlip {
 	private coin: Coin = {
 		head: CoinSides.HEAD,
-		customHead: false,
+		isCustomHead: false,
 		tails: CoinSides.TAILS,
-		customTails: false,
+		isCustomTails: false,
 	};
 	private readonly name = CommandNames.COINFLIP;
 	constructor(head: string | null, tails: string | null) {
 		if (head) {
 			this.coin.head = head;
-			this.coin.customHead = !!head;
+			this.coin.isCustomHead = !!head;
 		}
 		if (tails) {
 			this.coin.tails = tails;
-			this.coin.customTails = !!tails;
+			this.coin.isCustomTails = !!tails;
 		}
 	}
 
@@ -56,8 +56,8 @@ export class CoinFlip {
 		const result = this.coinFlip();
 		const replyTwo =
 			result === CoinSides.HEAD
-				? handleResult(this.coin.customHead, this.coin.head)
-				: handleResult(this.coin.customTails, this.coin.tails);
+				? handleResult(this.coin.isCustomHead, this.coin.head)
+				: handleResult(this.coin.isCustomTails, this.coin.tails);
 		return {
 			replyOne,
 			replyTwo,
