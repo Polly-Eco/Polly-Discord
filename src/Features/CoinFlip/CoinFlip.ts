@@ -49,9 +49,13 @@ export class CoinFlip {
 			'  :coin:  flies up, heart skips a beat or two, and coin goes down...';
 		const handleResult = (customSide: boolean, side: string) => {
 			if (customSide) {
-				return `...  :coin:  and we definitely see that this is **${capitalizeFirstLetter(side)}**!`;
+				return `...  :coin:  and we definitely see that this is **${capitalizeFirstLetter(
+					side
+				)}**!`;
 			}
-			return `...  :coin:  slaps the floor, does couple flips, and it's... **${capitalizeFirstLetter(side)}**!`;
+			return `...  :coin:  slaps the floor, does couple flips, and it's... **${capitalizeFirstLetter(
+				side
+			)}**!`;
 		};
 		const result = this.coinFlip();
 		const replyTwo =
