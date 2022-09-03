@@ -1,1 +1,1 @@
-npm run typeorm migration:run -- -d src/data-source.ts
+npm run typeorm migration:run -- -d src/db/appDataSource.ts

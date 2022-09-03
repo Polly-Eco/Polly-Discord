@@ -1,1 +1,1 @@
-# Pattern for Polly project repo
+# Polly Eco discord bot

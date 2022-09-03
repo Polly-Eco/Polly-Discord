@@ -1,6 +1,6 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
 
-export class Database extends DataSource {
+export class PollyDataSource extends DataSource {
 	constructor(options: DataSourceOptions) {
 		super(options);
 	}
@@ -15,9 +15,9 @@ export class Database extends DataSource {
 	}
 
 	public async setupDatabase() {
-		const CREATE_DATABASE = 'CREATE DATABASE "local-dev";';
+		const CREATE_DATABASE_QUERY = 'CREATE DATABASE "local-dev";';
 		try {
-			await this.query(CREATE_DATABASE);
+			await this.query(CREATE_DATABASE_QUERY);
 		} catch {
 			console.log('the database already exists');
 		}

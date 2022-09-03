@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import { appDataSource } from '../data-source';
+import { appDataSource } from '../db/appDataSource';
 
 export interface AppConfig {
 	token: string;

@@ -9,10 +9,7 @@ export class Prelaunch {
 	private commandsPath: string;
 	private appConfig: AppConfig;
 	private pollyRest: PollyRestClient;
-	constructor(
-		pathToCommands: string,
-		appConfig: AppConfig,
-	) {
+	constructor(pathToCommands: string, appConfig: AppConfig) {
 		const { token, clientId } = appConfig;
 		this.commandsPath = pathToCommands;
 		this.appConfig = appConfig;

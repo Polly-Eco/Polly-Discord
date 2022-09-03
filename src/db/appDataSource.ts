@@ -1,7 +1,7 @@
 import 'reflect-metadata';
-import { DataSource } from 'typeorm';
+import { PollyDataSource } from './PollyDataSource/PollyDataSource';
 
-export const appDataSource = new DataSource({
+export const appDataSource = new PollyDataSource({
 	type: 'postgres',
 	host: 'localhost',
 	port: 5432,

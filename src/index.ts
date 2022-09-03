@@ -12,8 +12,7 @@ import { Prelaunch } from './Prelaunch/Prelaunch';
 
 	const prelaunch = new Prelaunch(
 		path.join(__dirname, PATH_TO_COMMANDS),
-		appConfig,
-		
+		appConfig
 	);
 	const commands = await prelaunch.getCommands();
 	const commandsCollection = prelaunch.getCommandsCollection(commands);
