@@ -1,18 +1,19 @@
 import { Client, ClientOptions } from 'discord.js';
 import { Handler } from '../Handler/Handler';
+import { AppConfig } from '../helpers/getAppConfig';
 
-export interface Config {
+export interface PollyClientConfig {
 	options: ClientOptions;
-	token: string;
+	appConfig: AppConfig;
 	handler: Handler;
 }
 
 export class PollyClient extends Client {
 	readonly token: string;
 	readonly handler: Handler;
-	constructor(pollyOptions: Config) {
-		const { options, token, handler } = pollyOptions;
-
+	constructor(pollyOptions: PollyClientConfig) {
+		const { options, appConfig, handler } = pollyOptions;
+		const { token } = appConfig;
 		super(options);
 		this.token = token;
 		this.handler = handler;

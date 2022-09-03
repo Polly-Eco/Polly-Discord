@@ -12,11 +12,17 @@ export class Prelaunch {
 	constructor(
 		pathToCommands: string,
 		appConfig: AppConfig,
-		pollyRest: PollyRestClient
 	) {
+		const { token, clientId } = appConfig;
 		this.commandsPath = pathToCommands;
 		this.appConfig = appConfig;
-		this.pollyRest = pollyRest;
+		this.pollyRest = new PollyRestClient({
+			options: {
+				version: '10',
+			},
+			token,
+			clientId,
+		});
 	}
 
 	public async getCommands(): Promise<Command[]> {
