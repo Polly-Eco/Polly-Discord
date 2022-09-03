@@ -4,7 +4,8 @@
    "description": "Discord bot of Polly Ecosystem",
    "main": "./dist/src/index.js",
    "scripts": {
-      "start": "ts-node src/index.ts",
+      "start": "npm run build && node ./build/index.js",
+      "start:once": "ts-node ./src/index.ts",
       "start:dev": "nodemon",
       "build": "bash ./scripts/build.sh",
       "compile": "tsc --project tsconfig.build.json",
