@@ -4,6 +4,7 @@ import { Command, CommandExecutor } from '../shared/interfaces';
 import { Collection } from 'discord.js';
 import { AppConfig } from '../helpers/getAppConfig';
 import { PollyRestClient } from '../PollyRestClient/PollyRestClient';
+import { wait } from '../helpers/wait';
 
 export class Prelaunch {
 	private commandsPath: string;
@@ -49,9 +50,12 @@ export class Prelaunch {
 	public async updateSlashCommands(commands: Command[]) {
 		const body = commands.map(({ data }) => data.toJSON());
 		const { isUpdateRequired } = this.appConfig;
-		if (isUpdateRequired) {
-			await this.pollyRest.removeAllSlashCommands();
-			await this.pollyRest.addAllSlashCommands(body);
+		if (!isUpdateRequired) {
+			return;
 		}
+		await this.pollyRest.removeAllSlashCommands();
+		await wait(500);
+		await this.pollyRest.addAllSlashCommands(body);
+		return;
 	}
 }

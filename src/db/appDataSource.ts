@@ -10,7 +10,7 @@ export const appDataSource = new PollyDataSource({
 	database: 'postgres',
 	synchronize: true,
 	logging: false,
-	entities: ['src/db/entities/**/*.ts'],
-	migrations: ['src/db/migrations/**/*.ts'],
-	subscribers: ['src/db/subscriber/**/*.ts'],
+	entities: ['src/db/entities/**/*.js'],
+	migrations: ['src/db/migrations/**/*.js'],
+	subscribers: ['src/db/subscriber/**/*'],
 });

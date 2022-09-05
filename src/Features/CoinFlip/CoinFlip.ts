@@ -1,16 +1,16 @@
-import { Repository } from 'typeorm';
+import { appDataSource } from '../../db/appDataSource';
 import { Coin } from '../../db/entities/Coin';
 import { CoinController } from '../../db/repositories/Coin/CoinController';
 import { capitalizeFirstLetter } from '../../helpers/capitalizeFirstLetter';
-import { CoinDto, CoinSides, CoinFlipResult, CoinSide } from './coinFlip.types';
+import { CoinDto, CoinFlipResult, CoinSide } from './coinFlip.types';
 
 export class CoinFlip {
-	private coinController: CoinController;
 	private readonly plot =
 		'The  :coin:  flies up, heart skips a beat or two, and coin goes down...';
-	// constructor(coinRepository: Repository<Coin>) {
-	// 	this.coinRepository = coinRepository;
-	// }
+	private coinController: CoinController;
+	constructor() {
+		this.coinController = new CoinController(appDataSource.getRepository(Coin));
+	}
 
 	private coinFlip(coin: CoinDto): CoinSide {
 		const { head, tails } = coin;
@@ -48,7 +48,22 @@ export class CoinFlip {
 	}
 
 	public async tossACoin(coin: CoinDto): Promise<CoinFlipResult> {
-		await this.coinController.save(coin);
+		// const coinDto = await this.coinController.save(coin);
+		// console.log(coinDto);
+		await appDataSource.query(
+			`
+				INSERT INTO
+					coin
+				VALUES
+					(
+						'New coin',
+						'Head',
+						'Tails',
+						false,
+						false
+					)
+			`
+			);
 		const coinSide = this.coinFlip(coin);
 		return this.handleResult(coinSide);
 	}
