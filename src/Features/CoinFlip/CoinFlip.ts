@@ -1,66 +1,70 @@
+import { appDataSource } from '../../db/appDataSource';
+import { Coin } from '../../db/entities/Coin';
+import { CoinController } from '../../db/repositories/Coin/CoinController';
 import { capitalizeFirstLetter } from '../../helpers/capitalizeFirstLetter';
-import { CommandNames } from '../../shared/constants';
-
-export interface CoinFlipResult {
-	replyOne: string;
-	replyTwo: string;
-}
-
-export interface Coin {
-	head: string;
-	customHead: boolean;
-	tails: string;
-	customTails: boolean;
-}
-
-export enum CoinSides {
-	HEAD = 'head',
-	TAILS = 'tails',
-}
+import { CoinDto, CoinFlipResult, CoinSide } from './coinFlip.types';
 
 export class CoinFlip {
-	private coin: Coin = {
-		head: CoinSides.HEAD,
-		customHead: false,
-		tails: CoinSides.TAILS,
-		customTails: false,
-	};
-	private readonly name = CommandNames.COINFLIP;
-	constructor(head: string | null, tails: string | null) {
-		if (head) {
-			this.coin.head = head;
-			this.coin.customHead = !!head;
-		}
-		if (tails) {
-			this.coin.tails = tails;
-			this.coin.customTails = !!tails;
-		}
+	private readonly plot =
+		'The  :coin:  flies up, heart skips a beat or two, and coin goes down...';
+	private coinController: CoinController;
+	constructor() {
+		this.coinController = new CoinController(appDataSource.getRepository(Coin));
 	}
 
-	private coinFlip() {
+	private coinFlip(coin: CoinDto): CoinSide {
+		const { head, tails } = coin;
 		if (Math.random() < 0.5) {
-			return CoinSides.HEAD;
+			return head;
 		}
-		return CoinSides.TAILS;
+		return tails;
 	}
 
-	public handleCommand(): CoinFlipResult {
-		const replyOne =
-			'  :coin:  flies up, heart skips a beat or two, and coin goes down...';
-		const handleResult = (customSide: boolean, side: string) => {
-			if (customSide) {
-				return `...  :coin:  and we definitely see that this is **${capitalizeFirstLetter(side)}**!`;
-			}
-			return `...  :coin:  slaps the floor, does couple flips, and it's... **${capitalizeFirstLetter(side)}**!`;
-		};
-		const result = this.coinFlip();
-		const replyTwo =
-			result === CoinSides.HEAD
-				? handleResult(this.coin.customHead, this.coin.head)
-				: handleResult(this.coin.customTails, this.coin.tails);
+	private getResultStringForDefaultCoin(defaultSide: string) {
+		return `...  :coin:  slaps the floor, does couple flips, and it's... **${capitalizeFirstLetter(
+			defaultSide
+		)}**!`;
+	}
+
+	private getResultStringForCustomCoin(side: string) {
+		return `...  :coin:  and we definitely see that this is **${capitalizeFirstLetter(
+			side
+		)}**!`;
+	}
+
+	private handleResult({ isCustom, side }: CoinSide): CoinFlipResult {
+		if (isCustom) {
+			const result = this.getResultStringForCustomCoin(side);
+			return {
+				plot: this.plot,
+				result,
+			};
+		}
+		const result = this.getResultStringForDefaultCoin(side);
 		return {
-			replyOne,
-			replyTwo,
+			plot: this.plot,
+			result,
 		};
+	}
+
+	public async tossACoin(coin: CoinDto): Promise<CoinFlipResult> {
+		// const coinDto = await this.coinController.save(coin);
+		// console.log(coinDto);
+		await appDataSource.query(
+			`
+				INSERT INTO
+					coin
+				VALUES
+					(
+						'New coin',
+						'Head',
+						'Tails',
+						false,
+						false
+					)
+			`
+			);
+		const coinSide = this.coinFlip(coin);
+		return this.handleResult(coinSide);
 	}
 }

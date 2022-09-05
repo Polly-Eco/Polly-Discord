@@ -1,0 +1,1 @@
+npm run typeorm migration:revert -- -d src/db/appDataSource.ts
